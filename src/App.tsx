@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 import { store } from '@/store';
 import { UsersPage } from '@/pages/UsersPage';
 import { UserDetailPage } from '@/pages/UserDetailPage';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import { ThemeProvider } from '@/components/ThemeProvider'; // Import ThemeProvider
 
 function App() {
   return (
     <Provider store={store}>
-      <ThemeProvider>
+      <ThemeProvider> {/* Wrap with ThemeProvider */}
         <Router>
           <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
             <div className="container mx-auto px-4 py-8">

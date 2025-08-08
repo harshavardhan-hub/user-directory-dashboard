@@ -6,18 +6,13 @@ import { UserList } from '@/components/UserList';
 import { UserModal } from '@/components/UserModal';
 import { SearchFilter } from '@/components/SearchFilter';
 import { Pagination } from '@/components/Pagination';
+import { ThemeToggle } from '@/components/ThemeToggle'; // Import ThemeToggle
 import { Loader } from '@/components/ui/Loader';
 import { Button } from '@/components/ui/Button';
 
 export const UsersPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { 
-    loading, 
-    error, 
-    currentPage, 
-    totalPages 
-    // Removed 'users' from here since it's not used in this component
-  } = useSelector((state: RootState) => state.users);
+  const { loading, error, currentPage, totalPages } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
     dispatch(fetchUsers(1));
@@ -58,7 +53,7 @@ export const UsersPage: React.FC = () => {
 
   return (
     <>
-      {/* Page Header */}
+      {/* Header with Theme Toggle */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
           <div>
@@ -69,32 +64,33 @@ export const UsersPage: React.FC = () => {
               Browse and search through our user database
             </p>
           </div>
-          <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <span>Powered by ReqRes API</span>
+          
+          {/* Theme Toggle Button */}
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+            <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>Powered by ReqRes API</span>
+            </div>
           </div>
         </div>
         
-        {/* Search/Filter Component */}
         <SearchFilter />
       </div>
       
-      {/* User List */}
       <UserList />
       
-      {/* Pagination Controls */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
         loading={loading}
-        totalItems={12} // ReqRes API has 12 total users
+        totalItems={12}
         itemsPerPage={6}
       />
       
-      {/* User Detail Modal */}
       <UserModal />
     </>
   );
