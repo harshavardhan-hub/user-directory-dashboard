@@ -11,7 +11,13 @@ import { Button } from '@/components/ui/Button';
 
 export const UsersPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, error, currentPage, totalPages, users } = useSelector((state: RootState) => state.users);
+  const { 
+    loading, 
+    error, 
+    currentPage, 
+    totalPages 
+    // Removed 'users' from here since it's not used in this component
+  } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
     dispatch(fetchUsers(1));
